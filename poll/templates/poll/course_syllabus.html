@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ course.name }} - Syllabus | ECE KCT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* KCT Official Colors */
+            --primary: #142A4F;
+            --primary-light: #1e3a5f;
+            --primary-dark: #0d1d38;
+            --secondary: #68B19F;
+            --secondary-light: #7ec4b3;
+            --secondary-dark: #4f9a89;
+            
+            --gray: #64748b;
+            --gray-light: #94a3b8;
+            --white: #ffffff;
+            --radius: 16px;
+            --radius-sm: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0d1d38 0%, #142A4F 50%, #1e3a5f 100%);
+            min-height: 100vh;
+            color: var(--white);
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            margin-bottom: 2rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--secondary-light);
+        }
+
+        .course-header {
+            background: rgba(20, 42, 79, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius);
+            border: 1px solid rgba(104, 177, 159, 0.2);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .course-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            background: rgba(104, 177, 159, 0.2);
+        }
+
+        h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #fff 0%, #68B19F 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .course-meta {
+            color: var(--gray-light);
+            font-size: 0.875rem;
+        }
+
+        .syllabus-card {
+            background: rgba(20, 42, 79, 0.4);
+            border-radius: var(--radius);
+            border: 1px solid rgba(104, 177, 159, 0.2);
+            overflow: hidden;
+        }
+
+        .syllabus-header {
+            background: rgba(104, 177, 159, 0.15);
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid rgba(104, 177, 159, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .syllabus-header h2 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        .syllabus-text {
+            padding: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .syllabus-text h3, .syllabus-text h4 {
+            color: var(--secondary);
+            margin: 1.5rem 0 0.75rem;
+        }
+
+        .syllabus-text h3:first-child, .syllabus-text h4:first-child {
+            margin-top: 0;
+        }
+
+        .syllabus-text ul, .syllabus-text ol {
+            padding-left: 1.5rem;
+            margin: 0.75rem 0;
+        }
+
+        .syllabus-text li {
+            margin-bottom: 0.5rem;
+        }
+
+        .syllabus-text p {
+            margin-bottom: 1rem;
+        }
+
+        .syllabus-text strong {
+            color: var(--secondary-light);
+        }
+
+        .empty-syllabus {
+            text-align: center;
+            padding: 3rem;
+            color: var(--gray-light);
+        }
+
+        .empty-syllabus i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="{% url 'enrollment_home' %}" class="back-link">
+            ← Back to Enrollment
+        </a>
+
+        <div class="course-header">
+            <div class="course-icon">{{ course.icon }}</div>
+            <h1>{{ course.name }}</h1>
+            <p class="course-meta">
+                Value-Added Course | Capacity: {{ course.max_capacity }} students
+            </p>
+        </div>
+
+        <div class="syllabus-card">
+            <div class="syllabus-header">
+                <span>📄</span>
+                <h2>Course Syllabus</h2>
+            </div>
+            <div class="syllabus-text">
+                {% if course.syllabus %}
+                    {{ course.syllabus|safe }}
+                {% else %}
+                    <div class="empty-syllabus">
+                        <div>📚</div>
+                        <p>Syllabus will be updated soon.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
