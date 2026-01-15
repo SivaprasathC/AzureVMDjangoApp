@@ -31,6 +31,11 @@ ALLOWED_HOSTS = [
 ]
 DEBUG = True
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://vote.sivaprasath.tech",
+]
+
+
 
 
 # Application definition
